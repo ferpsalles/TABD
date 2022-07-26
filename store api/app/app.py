@@ -71,7 +71,11 @@ def trigger_customer():
     db().createtrigger()
     return "Trigger created"
 
-
+@app.route("/oldcustomers", methods=["DELETE"])
+def delete_oldcustomer():
+    con = db().con
+    db().job()
+    return "The customers has been deleted." 
            
 
 

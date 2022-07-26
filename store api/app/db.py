@@ -1,4 +1,5 @@
 import pymysql
+
 class db:
     def __init__(self): 
         self.con = pymysql.connect(host='localhost', database='store', user='root',password='senha')
@@ -42,4 +43,10 @@ class db:
     def createtrigger(self):
         query ='CREATE TRIGGER before_customer_delete BEFORE DELETE ON customer FOR EACH ROW BEGIN INSERT INTO CustomerArchives(customerNumber, customerName, start_ts) VALUES(OLD.customerNumber, OLD.customerName, old.start_ts); UPDATE sales SET customerNumber = "9999" Where customerNumber= OLD.customerNumber; END'
         self.cursor.execute(query)
+        self.con.close()
+
+    def job(self):
+        query = 'DELETE FROM CUSTOMER WHERE START_TS <= sysdate() - 365 AND customerNumber !="9999"'
+        self.cursor.execute(query)
+        self.con.commit()
         self.con.close()
