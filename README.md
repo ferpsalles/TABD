@@ -30,7 +30,9 @@ pip install PyMySQL
  
  
  ## Registro no banco
+ ![alt text](https://github.com/ferpsalles/TABD/blob/main/Capturar.JPG)
  
+ O registro do cliente eliminado na tabela de vendas fica atribuido como inválido, sem perder a rastreabilidade. Apenas modificada o cliente atribuido a ela.
  
  
  
