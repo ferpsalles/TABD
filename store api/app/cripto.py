@@ -1,5 +1,7 @@
 from cryptography.fernet import Fernet #IMPORTA MÓDULO
-
+from flask import Response
+import xlwt
+import io
 import pandas as pd
 
 def gerar_chave():
@@ -27,17 +29,12 @@ def gerar_relatorio(con):
 
         # criptografar o arquivo
         df = pd.read_sql_query("select * from customer",con)
-
+        
         for i in df.index:
             encrypted = fernet.encrypt(bytes(df['customerNumber'][i]))
             df['customerNumber'][i] = encrypted
-            
-        print(df)
-        return str(df)
-        
-        # abrir o arquivo no modo de gravação e
-        # gravar os dados criptografados
-        #with open('nba.csv', 'wb') as encrypted_file:
-        #encrypted_file.write(encrypted)encrypted_file.write(encrypted)
+
+        return df
+
 if __name__ == "__main__":
     gerar_chave()
